@@ -1,0 +1,25 @@
+.story {
+   display: flex;
+   width: 500px;
+   justify-content: space-between;
+}
+
+.old {
+   color: darkgray;
+}
+
+.negative {
+   color: brown;
+}
+
+.positive {
+   color: darkgreen;
+}
+
+.actual {
+   color: gold
+}
+
+.bold {
+   font-weight: bold;
+}

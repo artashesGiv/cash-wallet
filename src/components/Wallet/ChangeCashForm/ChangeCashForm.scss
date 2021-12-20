@@ -1,0 +1,27 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    min-height: 200px;
+    form {
+        width: 200px;
+        height: 80px;
+        align-self: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+    }
+    .btn{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        align-self: center;
+        height: 90px;
+    }
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    display: none;
+}
