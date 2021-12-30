@@ -1,72 +1,48 @@
 import React from 'react'
-import {story} from '../Wallet'
-import './Story.scss'
 import {Table} from 'antd'
-import {MinusCircleTwoTone, PlusCircleTwoTone} from '@ant-design/icons'
 import Text from 'antd/lib/typography/Text'
+import {stateType} from '../../../store/Wallet/walletReducer'
 
 type PropsType = {
-   story: story[],
+   state: stateType,
 }
 
-export const Story = ({story}: PropsType) => {
+export const Story = ({state}: PropsType) => {
 
    const columns = [
       {
-         title: 'Type',
-         dataIndex: 'type',
-         key: 'type',
-         render: (type: '+' | '-') => type === '+' ? <PlusCircleTwoTone/> :
-            <MinusCircleTwoTone twoToneColor="#eb2f96"/>,
-         filters: [
-            {
-               text: 'Income',
-               value: '+',
-            },
-            {
-               text: 'Expenses',
-               value: '-',
-            },
-         ],
-         onFilter: (value: any, item: story) => item.type.includes(value),
+         title: 'Категория',
+         dataIndex: 'category',
+         key: 'category',
       },
       {
-         title: 'Old Value',
-         dataIndex: 'oldValue',
-         key: 'oldValue',
-      },
-      {
-         title: 'Change',
+         title: 'Операция',
          dataIndex: 'change',
          key: 'change',
-         sorter: (a: story, b: story) => a.change - b.change,
-      },
-      {
-         title: 'Actual Value',
-         dataIndex: 'actualValue',
-         key: 'actualValue',
          render: (value: number) => {
             const typeText = value < 0 ? 'danger' : 'success'
             return <Text strong type={typeText}>{value}</Text>
          },
       },
       {
-         title: 'Comment',
+         title: 'Комментарий',
          dataIndex: 'operationComment',
          key: 'operationComment',
       },
       {
-         title: 'Date',
+         title: 'Дата',
          dataIndex: 'date',
          key: 'date',
+         responsive: ['sm'],
       },
    ]
 
-   const dataSource = story.map(s => ({...s, key: s.id}))
+   const dataSource = state.story.map((s, id) => ({...s, key: id}))
 
    return (
       <Table
          dataSource={dataSource}
+         // @ts-ignore
          columns={columns}
       />
    )

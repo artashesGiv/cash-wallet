@@ -4,20 +4,17 @@
    align-items: center;
    justify-content: space-around;
    padding: 20px;
-   border: 2px solid;
+   border: 2px solid rgba(196, 196, 196, 0.5);
    border-radius: 10px;
    align-self: center;
    margin-top: 100px;
    margin-bottom: 100px;
+   background-color: #fff;
 
    .btn {
       display: flex;
       width: 100px;
       justify-content: space-between;
-   }
-
-   .table {
-      margin-top: 50px;
    }
 }
 

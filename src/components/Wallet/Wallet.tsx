@@ -5,42 +5,21 @@ import './Wallet.scss'
 import Title from 'antd/lib/typography/Title'
 import {Button} from 'antd'
 import {MinusCircleTwoTone, PlusCircleTwoTone} from '@ant-design/icons'
-import {v1} from 'uuid'
+import {WalletPropsType} from './WalletContainer'
 
-export type story = {
-   id: string
-   oldValue: number
-   change: number
-   actualValue: number
-   operationComment: string
-   type: '+' | '-'
-   date: string
-}
-
-export const Wallet = () => {
-
-   const [cash, setCash] = useState<number>(0)
-   const [story, setStory] = useState<story[]>([])
+export const Wallet = ({saveStory, state, addCategory, ...props}: WalletPropsType) => {
    const [add, setAdd] = useState<boolean>(false)
    const [changeFormVisible, setChangeFormVisible] = useState<boolean>(false)
 
-   const saveStory = (change: number, operationComment: string) => {
-      setStory([...story, {
-         id: v1(),
-         oldValue: cash,
-         actualValue: change + cash,
-         change,
-         type: change < 0 ? '-' : '+',
-         operationComment,
-         date: `${new Date().getDate().toString()}.${new Date().getMonth().toString()}.${new Date().getFullYear().toString()}`,
-      }])
-      setCash(change + cash)
+   const addStory = (category: string, change: number, operationComment: string) => {
+      saveStory(category, change, operationComment)
    }
 
    const addCash = () => {
       setChangeFormVisible(prev => !prev)
       setAdd(true)
    }
+
    const deductCash = () => {
       setChangeFormVisible(prev => !prev)
       setAdd(false)
@@ -48,7 +27,7 @@ export const Wallet = () => {
 
    return (
       <div className={'wrapper'}>
-         <Title type={cash <= 0 ? 'danger' : 'success'}>{cash}</Title>
+         <Title type={state.cash <= 0 ? 'danger' : 'success'}>{state.cash}</Title>
          <div className={'btn'}>
             {!changeFormVisible &&
               <Button type={'primary'} onClick={addCash} icon={<PlusCircleTwoTone/>} shape="circle" size={'large'}/>}
@@ -58,10 +37,9 @@ export const Wallet = () => {
                       size={'large'}/>}
          </div>
          {changeFormVisible &&
-           <ChangeCashForm add={add} cash={cash} changeCash={saveStory} setVisible={setChangeFormVisible}/>}
-         <div className={'table'}>
-            <Story story={story}/>
-         </div>
+           <ChangeCashForm add={add} changeCash={addStory} setVisible={setChangeFormVisible} state={state}
+                           addCategory={addCategory}/>}
+         <Story state={state}/>
       </div>
    )
 }

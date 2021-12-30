@@ -1,63 +1,90 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react'
-import {Button, Input} from 'antd'
-import './ChangeCashForm.scss'
+import React, {ChangeEvent, useState} from 'react'
+import {Button, Form, Input, InputNumber, Select} from 'antd'
 import {EditTwoTone, LeftCircleTwoTone, MinusCircleTwoTone, PlusCircleTwoTone} from '@ant-design/icons'
+import {stateType} from '../../../store/Wallet/walletReducer'
 
 type PropsType = {
    add: boolean
-   cash: number
-   changeCash: (difference: number, operationComment: string) => void
+   changeCash: (category: string, difference: number, operationComment: string) => void
    setVisible: (visible: boolean) => void
+   state: stateType
+   addCategory: (category: string, add: boolean) => void
 }
 
 export const ChangeCashForm = (props: PropsType) => {
 
    const [inputValueCash, setInputValueCash] = useState<number>(0)
    const [inputValueComment, setInputValueComment] = useState<string>('')
+   const [inputValueCategory, setInputValueCategory] = useState<string>('')
+   const [selectCategory, setSelectCategory] = useState<string>('')
 
-   const onChangeInputCash = (e: ChangeEvent<HTMLInputElement>) => {
-      setInputValueCash(+e.currentTarget.value)
+   const onChangeInputCash = (value: number) => {
+      setInputValueCash(value)
    }
 
    const onChangeInputComment = (e: ChangeEvent<HTMLInputElement>) => {
       setInputValueComment(e.currentTarget.value)
    }
 
-   const onKeyPressInputComment = (e: KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && changeCash()
-
-   const changeCash = () => {
-      props.changeCash(props.add ? inputValueCash : -inputValueCash, inputValueComment)
-      props.setVisible(false)
-   }
-
-   function handleEnter(e: KeyboardEvent<HTMLInputElement>) {
-      if (e.key === 'Enter') {
-         const form = e.currentTarget.form
-         const index = Array.prototype.indexOf.call(form, e.currentTarget)
-         // @ts-ignore
-         form?.elements[index + 1].focus()
-         e.preventDefault()
-      }
+   const onChangeInputCategory = (e: ChangeEvent<HTMLInputElement>) => {
+      setInputValueCategory(e.currentTarget.value)
    }
 
    const IconButton = props.add ? <PlusCircleTwoTone/> : <MinusCircleTwoTone twoToneColor="#eb2f96"/>
 
+   const handleChange = (value: string) => {
+      setSelectCategory(value)
+   }
+
+   const onFinish = (values: any) => {
+      props.changeCash(values.category, props.add ? +values.sum : +(-values.sum), values.comment)
+      props.setVisible(false)
+   }
+
+   const addCategory = () => {
+      if (inputValueCategory !== '') {
+         props.addCategory(inputValueCategory, props.add)
+         setInputValueCategory('')
+      }
+   }
+
    return (
-      <div className={'form'}>
-         <form>
-            <Input size={'middle'} placeholder={'enter the amount'} autoFocus min={'0'} type="number"
-                   value={inputValueCash === 0 ? '' : Number(inputValueCash).toString()}
-                   onChange={onChangeInputCash} onKeyPress={handleEnter} prefix={IconButton}/>
-            <Input size={'middle'} placeholder={'enter the comment'} value={inputValueComment}
-                   onChange={onChangeInputComment}
-                   onKeyPress={onKeyPressInputComment} prefix={<EditTwoTone/>}/>
-         </form>
-         <div className="btn">
-            <Button type={'primary'} danger={!props.add} onClick={changeCash} icon={IconButton} shape={'circle'}
-                    size={'large'}/>
-            <Button type={'primary'} onClick={() => props.setVisible(false)} icon={<LeftCircleTwoTone/>} size={'large'}
-                    shape={'circle'}/>
-         </div>
-      </div>
+      <Form name="wallet" onFinish={onFinish} autoComplete="off">
+         <Form.Item name={'sum'} rules={[{required: true, message: 'Введите сумму!'}]}>
+            <InputNumber size={'middle'} placeholder={'Введите сумму'} autoFocus min={1} type="number"
+                         defaultValue={inputValueCash === 0 ? undefined : inputValueCash}
+                         onChange={onChangeInputCash} addonBefore={IconButton} controls={false}/>
+         </Form.Item>
+
+         <Form.Item name={'comment'}>
+            <Input size={'middle'} placeholder={'Введите комментарий'} value={inputValueComment}
+                   onChange={onChangeInputComment} addonBefore={<EditTwoTone/>}/>
+         </Form.Item>
+
+         <Form.Item name={'category'} rules={[{required: true, message: 'Выберите категорию!'}]}>
+            <Select value={selectCategory} onChange={handleChange}>
+               {
+                  props.add
+                     ? props.state.categoryNameIncome.map(cn => <Select.Option key={cn}
+                                                                               value={cn}>{cn}</Select.Option>)
+                     : props.state.categoryNameExpenses.map(cn => <Select.Option key={cn}
+                                                                                 value={cn}>{cn}</Select.Option>)
+               }
+            </Select>
+         </Form.Item>
+
+         {/*<input onChange={onChangeInputCategory} value={inputValueCategory}/>*/}
+         {/*<button onClick={addCategory}>+</button>*/}
+
+         <Form.Item>
+            <div style={{display: 'flex', justifyContent: 'space-evenly'}}>
+               <Button type={'primary'} danger={!props.add} icon={IconButton} shape={'circle'}
+                       size={'large'} htmlType="submit"/>
+               <Button type={'primary'} onClick={() => props.setVisible(false)} icon={<LeftCircleTwoTone/>}
+                       size={'large'}
+                       shape={'circle'}/>
+            </div>
+         </Form.Item>
+      </Form>
    )
 }
