@@ -7,7 +7,7 @@ import {Button} from 'antd'
 import {MinusCircleTwoTone, PlusCircleTwoTone} from '@ant-design/icons'
 import {WalletPropsType} from './WalletContainer'
 
-export const Wallet = ({saveStory, state, addCategory, ...props}: WalletPropsType) => {
+export const Wallet = ({saveStory, state, addCategory}: WalletPropsType) => {
    const [add, setAdd] = useState<boolean>(false)
    const [changeFormVisible, setChangeFormVisible] = useState<boolean>(false)
 
@@ -25,14 +25,18 @@ export const Wallet = ({saveStory, state, addCategory, ...props}: WalletPropsTyp
       setAdd(false)
    }
 
+   const borderColor = !changeFormVisible ? 'rgba(86,86,86,0.5)' : add ? '#1890ff' : '#ff4d4f'
+
    return (
-      <div className={'wrapper'}>
+      <div className={'wrapper'} style={{border: `3px solid ${borderColor}`}}>
          <Title type={state.cash <= 0 ? 'danger' : 'success'}>{state.cash}</Title>
          <div className={'btn'}>
             {!changeFormVisible &&
-              <Button type={'primary'} onClick={addCash} icon={<PlusCircleTwoTone/>} shape="circle" size={'large'}/>}
+              <Button type={'primary'} onClick={addCash} icon={<PlusCircleTwoTone/>} shape="circle"
+                      size={'large'}/>}
             {!changeFormVisible &&
-              <Button type={'primary'} danger onClick={deductCash} icon={<MinusCircleTwoTone twoToneColor="#eb2f96"/>}
+              <Button type={'primary'} danger onClick={deductCash}
+                      icon={<MinusCircleTwoTone twoToneColor="#eb2f96"/>}
                       shape="circle"
                       size={'large'}/>}
          </div>

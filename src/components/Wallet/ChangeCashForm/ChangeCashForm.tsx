@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useState} from 'react'
-import {Button, Form, Input, InputNumber, Select} from 'antd'
+import {Button, Form, Input, InputNumber, message, Select} from 'antd'
 import {EditTwoTone, LeftCircleTwoTone, MinusCircleTwoTone, PlusCircleTwoTone} from '@ant-design/icons'
 import {stateType} from '../../../store/Wallet/walletReducer'
 
@@ -15,7 +15,6 @@ export const ChangeCashForm = (props: PropsType) => {
 
    const [inputValueCash, setInputValueCash] = useState<number>(0)
    const [inputValueComment, setInputValueComment] = useState<string>('')
-   const [inputValueCategory, setInputValueCategory] = useState<string>('')
    const [selectCategory, setSelectCategory] = useState<string>('')
 
    const onChangeInputCash = (value: number) => {
@@ -24,10 +23,6 @@ export const ChangeCashForm = (props: PropsType) => {
 
    const onChangeInputComment = (e: ChangeEvent<HTMLInputElement>) => {
       setInputValueComment(e.currentTarget.value)
-   }
-
-   const onChangeInputCategory = (e: ChangeEvent<HTMLInputElement>) => {
-      setInputValueCategory(e.currentTarget.value)
    }
 
    const IconButton = props.add ? <PlusCircleTwoTone/> : <MinusCircleTwoTone twoToneColor="#eb2f96"/>
@@ -39,20 +34,14 @@ export const ChangeCashForm = (props: PropsType) => {
    const onFinish = (values: any) => {
       props.changeCash(values.category, props.add ? +values.sum : +(-values.sum), values.comment)
       props.setVisible(false)
-   }
-
-   const addCategory = () => {
-      if (inputValueCategory !== '') {
-         props.addCategory(inputValueCategory, props.add)
-         setInputValueCategory('')
-      }
+      message.success('Операция добавлена').then(r => r)
    }
 
    return (
       <Form name="wallet" onFinish={onFinish} autoComplete="off">
          <Form.Item name={'sum'} rules={[{required: true, message: 'Введите сумму!'}]}>
             <InputNumber size={'middle'} placeholder={'Введите сумму'} autoFocus min={1} type="number"
-                         defaultValue={inputValueCash === 0 ? undefined : inputValueCash}
+                         value={inputValueCash === 0 ? undefined : inputValueCash}
                          onChange={onChangeInputCash} addonBefore={IconButton} controls={false}/>
          </Form.Item>
 
@@ -72,9 +61,6 @@ export const ChangeCashForm = (props: PropsType) => {
                }
             </Select>
          </Form.Item>
-
-         {/*<input onChange={onChangeInputCategory} value={inputValueCategory}/>*/}
-         {/*<button onClick={addCategory}>+</button>*/}
 
          <Form.Item>
             <div style={{display: 'flex', justifyContent: 'space-evenly'}}>
