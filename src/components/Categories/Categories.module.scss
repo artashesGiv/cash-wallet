@@ -1,0 +1,10 @@
+@import 'src/style/mixins';
+
+.wrapper {
+   @include wrapper;
+   border: 3px solid rgba(86, 86, 86, 0.5);
+}
+
+.expenses, .income {
+   width: 300px;
+}

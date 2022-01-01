@@ -1,13 +1,13 @@
 import React, {useState} from 'react'
 import {Story} from './Story/Story'
 import {ChangeCashForm} from './ChangeCashForm/ChangeCashForm'
-import './Wallet.scss'
+import s from './Wallet.module.scss'
 import Title from 'antd/lib/typography/Title'
 import {Button} from 'antd'
 import {MinusCircleTwoTone, PlusCircleTwoTone} from '@ant-design/icons'
 import {WalletPropsType} from './WalletContainer'
 
-export const Wallet = ({saveStory, state, addCategory}: WalletPropsType) => {
+export const Wallet = ({saveStory, state}: WalletPropsType) => {
    const [add, setAdd] = useState<boolean>(false)
    const [changeFormVisible, setChangeFormVisible] = useState<boolean>(false)
 
@@ -28,9 +28,9 @@ export const Wallet = ({saveStory, state, addCategory}: WalletPropsType) => {
    const borderColor = !changeFormVisible ? 'rgba(86,86,86,0.5)' : add ? '#1890ff' : '#ff4d4f'
 
    return (
-      <div className={'wrapper'} style={{border: `3px solid ${borderColor}`}}>
-         <Title type={state.cash <= 0 ? 'danger' : 'success'}>{state.cash}</Title>
-         <div className={'btn'}>
+      <div className={s.wrapper} style={{border: `3px solid ${borderColor}`}}>
+         <Title type={state.wallet.cash <= 0 ? 'danger' : 'success'}>{state.wallet.cash}</Title>
+         <div className={s.btn}>
             {!changeFormVisible &&
               <Button type={'primary'} onClick={addCash} icon={<PlusCircleTwoTone/>} shape="circle"
                       size={'large'}/>}
@@ -40,10 +40,11 @@ export const Wallet = ({saveStory, state, addCategory}: WalletPropsType) => {
                       shape="circle"
                       size={'large'}/>}
          </div>
-         {changeFormVisible &&
-           <ChangeCashForm add={add} changeCash={addStory} setVisible={setChangeFormVisible} state={state}
-                           addCategory={addCategory}/>}
-         <Story state={state}/>
+         {
+            changeFormVisible &&
+           <ChangeCashForm add={add} changeCash={addStory} setVisible={setChangeFormVisible} state={state}/>
+         }
+         <Story state={state.wallet}/>
       </div>
    )
 }

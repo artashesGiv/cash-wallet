@@ -1,14 +1,14 @@
 import React, {ChangeEvent, useState} from 'react'
-import {Button, Form, Input, InputNumber, message, Select} from 'antd'
+import {Button, Form, Input, InputNumber, message} from 'antd'
 import {EditTwoTone, LeftCircleTwoTone, MinusCircleTwoTone, PlusCircleTwoTone} from '@ant-design/icons'
-import {stateType} from '../../../store/Wallet/walletReducer'
+import {AppStateType} from '../../../store/store'
+import {CategorySelect} from '../../Categories/CategorySelect/CategorySelect'
 
 type PropsType = {
    add: boolean
    changeCash: (category: string, difference: number, operationComment: string) => void
    setVisible: (visible: boolean) => void
-   state: stateType
-   addCategory: (category: string, add: boolean) => void
+   state: AppStateType
 }
 
 export const ChangeCashForm = (props: PropsType) => {
@@ -25,7 +25,7 @@ export const ChangeCashForm = (props: PropsType) => {
       setInputValueComment(e.currentTarget.value)
    }
 
-   const IconButton = props.add ? <PlusCircleTwoTone/> : <MinusCircleTwoTone twoToneColor="#eb2f96"/>
+   const IconButton = props.add ? <PlusCircleTwoTone/> : <MinusCircleTwoTone twoToneColor={'#eb2f96'}/>
 
    const handleChange = (value: string) => {
       setSelectCategory(value)
@@ -40,7 +40,7 @@ export const ChangeCashForm = (props: PropsType) => {
    return (
       <Form name="wallet" onFinish={onFinish} autoComplete="off">
          <Form.Item name={'sum'} rules={[{required: true, message: 'Введите сумму!'}]}>
-            <InputNumber size={'middle'} placeholder={'Введите сумму'} autoFocus min={1} type="number"
+            <InputNumber size={'middle'} placeholder={'Введите сумму'} autoFocus min={1} type={'number'}
                          value={inputValueCash === 0 ? undefined : inputValueCash}
                          onChange={onChangeInputCash} addonBefore={IconButton} controls={false}/>
          </Form.Item>
@@ -51,21 +51,14 @@ export const ChangeCashForm = (props: PropsType) => {
          </Form.Item>
 
          <Form.Item name={'category'} rules={[{required: true, message: 'Выберите категорию!'}]}>
-            <Select value={selectCategory} onChange={handleChange}>
-               {
-                  props.add
-                     ? props.state.categoryNameIncome.map(cn => <Select.Option key={cn}
-                                                                               value={cn}>{cn}</Select.Option>)
-                     : props.state.categoryNameExpenses.map(cn => <Select.Option key={cn}
-                                                                                 value={cn}>{cn}</Select.Option>)
-               }
-            </Select>
+            <CategorySelect value={selectCategory} onChange={handleChange} categories={props.state.categories}
+                            add={props.add}/>
          </Form.Item>
 
          <Form.Item>
             <div style={{display: 'flex', justifyContent: 'space-evenly'}}>
                <Button type={'primary'} danger={!props.add} icon={IconButton} shape={'circle'}
-                       size={'large'} htmlType="submit"/>
+                       size={'large'} htmlType={'submit'}/>
                <Button type={'primary'} onClick={() => props.setVisible(false)} icon={<LeftCircleTwoTone/>}
                        size={'large'}
                        shape={'circle'}/>

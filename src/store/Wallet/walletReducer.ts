@@ -1,4 +1,4 @@
-import {addCategory, saveStory} from './actions'
+import {saveStory} from './actions'
 import {v1} from 'uuid'
 
 type operationItemType = {
@@ -11,21 +11,17 @@ type operationItemType = {
    date: string
 }
 
-export type stateType = {
+export type stateTypeWallet = {
    story: operationItemType[]
-   categoryNameExpenses: string[]
-   categoryNameIncome: string[]
    cash: number
 }
 
-const initialState: stateType = {
+const initialState: stateTypeWallet = {
    story: [],
-   categoryNameExpenses: ['Дом', 'Машина', 'Развлечения', 'Здоровье'],
-   categoryNameIncome: ['Зарплата', 'Сбережения'],
    cash: 0,
 }
 
-export const walletReducer = (state: stateType = initialState, action: actionType): stateType => {
+export const walletReducer = (state: stateTypeWallet = initialState, action: actionType): stateTypeWallet => {
    switch (action.type) {
       case 'SAVE-STORY':
          return {
@@ -44,23 +40,9 @@ export const walletReducer = (state: stateType = initialState, action: actionTyp
             ],
             cash: action.change + state.cash,
          }
-      case 'ADD-CATEGORY':
-         if (action.add) {
-            return {
-               ...state,
-               categoryNameIncome: [...state.categoryNameIncome, action.category]
-            }
-         } else {
-            return {
-               ...state,
-               categoryNameExpenses: [...state.categoryNameExpenses, action.category]
-            }
-         }
-
       default:
          return state
    }
 }
 
 type actionType = ReturnType<typeof saveStory>
-   | ReturnType<typeof addCategory>

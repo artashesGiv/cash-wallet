@@ -1,5 +1,7 @@
-export const actions = () => {
+export const addCategory = (category: string, add: boolean) => {
     return {
-        type: ''
+        type: 'ADD-CATEGORY',
+        add,
+        category,
     } as const
 }

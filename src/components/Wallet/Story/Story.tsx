@@ -1,10 +1,10 @@
 import React from 'react'
 import {Table} from 'antd'
 import Text from 'antd/lib/typography/Text'
-import {stateType} from '../../../store/Wallet/walletReducer'
+import {stateTypeWallet} from '../../../store/Wallet/walletReducer'
 
 type PropsType = {
-   state: stateType,
+   state: stateTypeWallet,
 }
 
 export const Story = ({state}: PropsType) => {
