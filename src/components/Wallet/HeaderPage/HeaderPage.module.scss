@@ -1,0 +1,19 @@
+.pageHeader {
+   padding: 0;
+
+   .content {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+
+      .descriptions {
+         width: 70%;
+      }
+
+      .statistic {
+         display: flex;
+      }
+   }
+
+
+}

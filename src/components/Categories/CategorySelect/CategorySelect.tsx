@@ -3,8 +3,8 @@ import {Select} from 'antd'
 import {stateTypeCategories} from '../../../store/Categories/categoriesReducer'
 
 type CategorySelectProps = {
-   value: string
-   onChange: (value: string) => void
+   value?: string
+   onChange?: (value: string) => void
    categories: stateTypeCategories
    add: boolean
 }

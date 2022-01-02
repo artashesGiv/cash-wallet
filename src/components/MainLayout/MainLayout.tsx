@@ -38,10 +38,10 @@ export const MainLayout = () => {
                   </Menu.Item>
                </Menu>
             </Sider>
-            <Layout style={{padding: '0 24px 24px'}}>
+            <Layout>
                <Content className={'site-layout-background'}>
                   <Row align={'middle'}>
-                     <Col xs={{span: 20, offset: 2}} md={{span: 12, offset: 6}}>
+                     <Col xs={{span: 20, offset: 2}} md={{span: 12, offset: 6}} lg={{span: 22, offset: 1}}>
                         <Routes>
                            <Route path={'/'} element={<Navigate replace to={PATH.MAIN}/>}/>
                            <Route path={PATH.MAIN} element={<WalletContainer/>}/>
