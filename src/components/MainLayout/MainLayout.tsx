@@ -23,7 +23,7 @@ export const MainLayout = () => {
             <Menu theme={'dark'} mode={'horizontal'} defaultSelectedKeys={['2']}/>
          </Header>
          <Layout>
-            <Sider width={200} className={'site-layout-sidebar'}>
+            <Sider width={200} >
                <Menu
                   mode="inline"
                   defaultSelectedKeys={['main']}
@@ -41,7 +41,7 @@ export const MainLayout = () => {
             <Layout>
                <Content className={'site-layout-background'}>
                   <Row align={'middle'}>
-                     <Col xs={{span: 20, offset: 2}} md={{span: 12, offset: 6}} lg={{span: 22, offset: 1}}>
+                     <Col lg={{span: 22, offset: 1}}>
                         <Routes>
                            <Route path={'/'} element={<Navigate replace to={PATH.MAIN}/>}/>
                            <Route path={PATH.MAIN} element={<WalletContainer/>}/>

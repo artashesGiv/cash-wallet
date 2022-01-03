@@ -44,6 +44,13 @@ export const Story = ({state}: PropsType) => {
          dataSource={dataSource}
          // @ts-ignore
          columns={columns}
+         bordered={true}
+         size={'small'}
+         pagination={{
+            pageSize: 12,
+            size: 'small',
+            position: ['topCenter']
+         }}
       />
    )
 }

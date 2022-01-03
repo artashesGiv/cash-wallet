@@ -6,11 +6,10 @@
    background: rgba(255, 255, 255, 0.5);
 }
 
-.site-layout-background,
-.site-layout-sidebar {
+.site-layout-background {
    padding: 24px;
    margin: 0;
-   min-height: calc(100vh - 88px);
+   min-height: calc(100vh - 64px);
 }
 
 .site-layout-sidebar {

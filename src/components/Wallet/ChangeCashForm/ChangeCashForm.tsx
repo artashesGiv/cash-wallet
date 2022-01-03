@@ -29,7 +29,6 @@ export const ChangeCashForm = (props: PropsType) => {
 
    return (
       <Form name="wallet" onFinish={onFinish} autoComplete="off">
-
          <Form.Item name={'date'}>
             <DatePicker defaultValue={date} onChange={onChangeDate} format={'DD/MM/YYYY'} style={{width: '100%'}}/>
          </Form.Item>
