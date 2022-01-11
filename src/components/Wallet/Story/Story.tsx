@@ -7,7 +7,7 @@ type PropsType = {
    state: stateTypeWallet,
 }
 
-export const Story = ({state}: PropsType) => {
+const StoryMemo = ({state}: PropsType) => {
 
    const columns = [
       {
@@ -43,7 +43,6 @@ export const Story = ({state}: PropsType) => {
    ]
       .sort((a, b) => a.id > b.id ? 1 : -1)
       .map((s, id) => ({...s, key: id}))
-
    return (
       <Table
          dataSource={dataSource}
@@ -59,3 +58,5 @@ export const Story = ({state}: PropsType) => {
       />
    )
 }
+
+export const Story = React.memo(StoryMemo)

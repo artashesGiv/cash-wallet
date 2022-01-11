@@ -12,8 +12,7 @@ type PropsType = {
    categories: stateTypeCategories
 }
 
-export const ChangeCashForm = (props: PropsType) => {
-
+const ChangeCashFormMemo = (props: PropsType) => {
    const [date, setDate] = useState<Moment>(moment().subtract())
    const onChangeDate = (value: any) => {
       setDate(value)
@@ -26,7 +25,6 @@ export const ChangeCashForm = (props: PropsType) => {
       props.setVisible(false)
       message.success('Операция добавлена').then(r => r)
    }
-
    return (
       <Form name="wallet" onFinish={onFinish} autoComplete="off">
          <Form.Item name={'date'}>
@@ -58,3 +56,5 @@ export const ChangeCashForm = (props: PropsType) => {
       </Form>
    )
 }
+
+export const ChangeCashForm = React.memo(ChangeCashFormMemo)

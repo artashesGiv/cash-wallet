@@ -24,7 +24,6 @@ const MainPieChartMemo = ({story, categories, total}: MainPieChartPropsType) => 
       }
       data.push(category)
    }
-
    return (
       <PieChart
          renderer={'svg'}

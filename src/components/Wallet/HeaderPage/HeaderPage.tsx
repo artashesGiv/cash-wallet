@@ -9,8 +9,7 @@ type HeaderPagePropsType = {
    categoriesExpenses: string[]
 }
 
-export const HeaderPage = (props: HeaderPagePropsType) => {
-
+const HeaderPageMemo = (props: HeaderPagePropsType) => {
    let costlyCategory = ''
    let sumCostlyCategory = 0
    const expensesOperations = props.state.story.expenses
@@ -60,3 +59,5 @@ export const HeaderPage = (props: HeaderPagePropsType) => {
       </PageHeader>
    )
 }
+
+export const HeaderPage = React.memo(HeaderPageMemo)

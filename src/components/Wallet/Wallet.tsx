@@ -28,7 +28,7 @@ export const Wallet = ({saveStory, state}: WalletPropsType) => {
    }
 
    const borderColor = !changeFormVisible ? 'rgba(86,86,86,0.5)' : add ? '#1890ff' : '#ff4d4f'
-
+   console.log('wallet')
    return (
       <>
          <HeaderPage state={state.wallet} categoriesExpenses={state.categories.categoryNameExpenses}/>
