@@ -37,7 +37,12 @@ export const Story = ({state}: PropsType) => {
       },
    ]
 
-   const dataSource = state.story.map((s, id) => ({...s, key: id}))
+   const dataSource = [
+      ...state.story.expenses,
+      ...state.story.income,
+   ]
+      .sort((a, b) => a.id > b.id ? 1 : -1)
+      .map((s, id) => ({...s, key: id}))
 
    return (
       <Table
@@ -47,9 +52,9 @@ export const Story = ({state}: PropsType) => {
          bordered={true}
          size={'small'}
          pagination={{
-            pageSize: 12,
+            pageSize: 13,
             size: 'small',
-            position: ['topCenter']
+            position: ['topCenter'],
          }}
       />
    )

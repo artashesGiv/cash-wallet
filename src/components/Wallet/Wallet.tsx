@@ -7,6 +7,7 @@ import {MinusCircleTwoTone, PlusCircleTwoTone} from '@ant-design/icons'
 import {WalletPropsType} from './WalletContainer'
 import {HeaderPage} from './HeaderPage/HeaderPage'
 import {Moment} from 'moment'
+import {MainPieChart} from './charts/MainPieChart/MainPieChart'
 
 export const Wallet = ({saveStory, state}: WalletPropsType) => {
    const [add, setAdd] = useState<boolean>(false)
@@ -30,35 +31,43 @@ export const Wallet = ({saveStory, state}: WalletPropsType) => {
 
    return (
       <>
-         <HeaderPage state={state}/>
+         <HeaderPage state={state.wallet} categoriesExpenses={state.categories.categoryNameExpenses}/>
          <div className={s.wrapper}>
             <div className={s.col}>
-               <div className={s.div} style={{height: changeFormVisible ? '35%' : '90%'}}>
 
+               <div className={s.chart}>
+                  <MainPieChart
+                     story={state.wallet.story.expenses}
+                     categories={state.categories.categoryNameExpenses}
+                     total={state.wallet.allExpenses}
+                  />
                </div>
-               <div className={s.form} style={{border: `3px solid ${borderColor}`}}>
-                  {
-                     !changeFormVisible &&
-                    <div className={s.btn}>
-                      <Button type={'primary'} onClick={addCash} icon={<PlusCircleTwoTone/>} shape={'circle'}
-                              size={'large'}/>
-                      <Button type={'primary'} danger onClick={deductCash}
-                              icon={<MinusCircleTwoTone twoToneColor={'#eb2f96'}/>}
-                              shape="circle"
-                              size={'large'}/>
-                    </div>
-                  }
-                  {
-                     changeFormVisible &&
-                    <ChangeCashForm add={add} changeCash={addStory} setVisible={setChangeFormVisible} state={state}/>
-                  }
-               </div>
+
+               {changeFormVisible &&
+                 <div className={s.form} style={{border: `3px solid ${borderColor}`}}>
+                   <ChangeCashForm add={add} changeCash={addStory} setVisible={setChangeFormVisible}
+                                   categories={state.categories}/>
+                 </div>
+               }
+
+               {!changeFormVisible &&
+                 <div className={s.btn}>
+                   <div className={s.btnContainer}>
+                     <Button type={'primary'} onClick={addCash} icon={<PlusCircleTwoTone/>} shape={'circle'}
+                             size={'large'}/>
+                     <Button type={'primary'} danger onClick={deductCash}
+                             icon={<MinusCircleTwoTone twoToneColor={'#eb2f96'}/>}
+                             shape="circle"
+                             size={'large'}/>
+                   </div>
+                 </div>
+               }
+
             </div>
             <div className={s.table}>
                <Story state={state.wallet}/>
             </div>
          </div>
-
       </>
    )
 }

@@ -1,15 +1,15 @@
 import React, {useState} from 'react'
 import {Button, DatePicker, Form, Input, InputNumber, message} from 'antd'
 import {EditTwoTone, LeftCircleTwoTone, MinusCircleTwoTone, PlusCircleTwoTone} from '@ant-design/icons'
-import {AppStateType} from '../../../store/store'
 import {CategorySelect} from '../../Categories/CategorySelect/CategorySelect'
 import moment, {Moment} from 'moment'
+import {stateTypeCategories} from '../../../store/Categories/categoriesReducer'
 
 type PropsType = {
    add: boolean
    changeCash: (category: string, difference: number, operationComment: string, date: Moment) => void
    setVisible: (visible: boolean) => void
-   state: AppStateType
+   categories: stateTypeCategories
 }
 
 export const ChangeCashForm = (props: PropsType) => {
@@ -30,12 +30,11 @@ export const ChangeCashForm = (props: PropsType) => {
    return (
       <Form name="wallet" onFinish={onFinish} autoComplete="off">
          <Form.Item name={'date'}>
-            <DatePicker defaultValue={date} onChange={onChangeDate} format={'DD/MM/YYYY'} style={{width: '100%'}}/>
+            <DatePicker defaultValue={moment().subtract()} onChange={onChangeDate} format={'DD/MM/YYYY'} style={{width: '100%'}}/>
          </Form.Item>
 
          <Form.Item name={'sum'} rules={[{required: true, message: 'Введите сумму!'}]}>
             <InputNumber placeholder={'Введите сумму'} autoFocus min={1} type={'number'}
-               // value={inputValueCash === 0 ? undefined : inputValueCash}
                          addonBefore={IconButton} controls={false}/>
          </Form.Item>
 
@@ -44,7 +43,7 @@ export const ChangeCashForm = (props: PropsType) => {
          </Form.Item>
 
          <Form.Item name={'category'} rules={[{required: true, message: 'Выберите категорию!'}]}>
-            <CategorySelect categories={props.state.categories} add={props.add}/>
+            <CategorySelect categories={props.categories} add={props.add}/>
          </Form.Item>
 
          <Form.Item>

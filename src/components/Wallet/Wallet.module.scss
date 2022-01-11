@@ -13,25 +13,36 @@
       flex-direction: column;
       width: 25%;
 
-      .form {
-         @include wrapper;
-         min-height: 10%;
-         max-height: 65%;
-         margin-top: 20px;
-         background: rgba(196, 196, 196, 0.2);
-
-         .btn {
-            display: flex;
-            width: 100px;
-            justify-content: space-between;
-
-         }
-      }
-
-      .div {
+      .chart {
+         display: flex;
+         justify-content: center;
+         flex-direction: column;
          border: 3px solid rgba(86, 86, 86, 0.5);
          border-radius: 4px;
          padding: 20px;
+         height: 100%;
+      }
+
+      .btn, .form {
+         @include wrapper;
+         margin-top: 20px;
+         background: #e1e1e1;
+      }
+
+      .form {
+         padding-bottom: 0;
+      }
+
+      .btn {
+         flex-direction: row;
+         justify-content: space-evenly;
+         border: 3px solid rgba(86, 86, 86, 0.5);
+
+         &Container {
+            display: flex;
+            justify-content: space-between;
+            width: 125px;
+         }
       }
    }
 
