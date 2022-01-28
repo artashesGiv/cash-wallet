@@ -3,10 +3,11 @@ import s from './HeaderPage.module.scss'
 import {Descriptions, PageHeader, Statistic} from 'antd'
 import {WalletOutlined} from '@ant-design/icons'
 import {stateTypeWallet} from '../../../store/Wallet/walletReducer'
+import {category} from '../../../store/Categories/categoriesReducer'
 
 type HeaderPagePropsType = {
    state: stateTypeWallet
-   categoriesExpenses: string[]
+   categoriesExpenses: category[]
 }
 
 const HeaderPageMemo = (props: HeaderPagePropsType) => {
@@ -19,7 +20,7 @@ const HeaderPageMemo = (props: HeaderPagePropsType) => {
       for (let i = 0; i < expensesCategories.length; i++) {
          let sum = 0
          for (let j = 0; j < expensesOperations.length; j++) {
-            let arr = expensesOperations.filter(o => o.category === expensesCategories[i]).map(o => o.change)
+            let arr = expensesOperations.filter(o => o.category.name === expensesCategories[i].name).map(o => o.change)
             if (arr.length > 1) {
                sum += -arr.reduce((a, b) => a + b)
             } else {
@@ -27,7 +28,7 @@ const HeaderPageMemo = (props: HeaderPagePropsType) => {
             }
          }
          if (sum > sumCostlyCategory) {
-            costlyCategory = expensesCategories[i]
+            costlyCategory = expensesCategories[i].name
             sumCostlyCategory = sum
          }
       }

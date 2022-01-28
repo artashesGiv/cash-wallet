@@ -1,8 +1,9 @@
 import {saveStory} from './actions'
+import {category} from '../Categories/categoriesReducer'
 
 export type operationItemType = {
    id: number
-   category: string
+   category: category
    prevValue: number
    change: number
    presentValue: number
@@ -26,7 +27,7 @@ const initialState: stateTypeWallet = {
    story: {
       expenses: [
          {
-            category: 'Развлечения',
+            category: {id: 5, name: 'Развлечения', color: '#8bc34a'},
             change: -1200,
             date: '02.01.2022',
             id: 2,
@@ -35,7 +36,7 @@ const initialState: stateTypeWallet = {
             prevValue: 10000,
          },
          {
-            category: 'Здоровье',
+            category: {id: 6, name: 'Здоровье', color: '#5d4037'},
             change: -3500,
             date: '02.01.2022',
             id: 3,
@@ -44,7 +45,7 @@ const initialState: stateTypeWallet = {
             prevValue: 8800,
          },
          {
-            category: 'Дом',
+            category: {id: 3, name: 'Дом', color: '#7986cb'},
             change: -350,
             date: '02.01.2022',
             id: 4,
@@ -53,7 +54,7 @@ const initialState: stateTypeWallet = {
             prevValue: 5300,
          },
          {
-            category: 'Развлечения',
+            category: {id: 5, name: 'Развлечения', color: '#8bc34a'},
             change: -956,
             date: '02.01.2022',
             id: 5,
@@ -62,7 +63,7 @@ const initialState: stateTypeWallet = {
             prevValue: 4950,
          },
          {
-            category: 'Здоровье',
+            category: {id: 6, name: 'Здоровье', color: '#5d4037'},
             change: -983,
             date: '02.01.2022',
             id: 6,
@@ -71,7 +72,7 @@ const initialState: stateTypeWallet = {
             prevValue: 3994,
          },
          {
-            category: 'Машина',
+            category: {id: 4, name: 'Машина', color: '#ff9800'},
             change: -1500,
             date: '02.01.2022',
             id: 7,
@@ -80,7 +81,7 @@ const initialState: stateTypeWallet = {
             prevValue: 3011,
          },
          {
-            category: 'Дом',
+            category: {id: 3, name: 'Дом', color: '#7986cb'},
             change: -6500,
             date: '02.01.2022',
             id: 8,
@@ -89,7 +90,7 @@ const initialState: stateTypeWallet = {
             prevValue: 1511,
          },
          {
-            category: 'Развлечения',
+            category: {id: 5, name: 'Развлечения', color: '#8bc34a'},
             change: -3200,
             date: '02.01.2022',
             id: 10,
@@ -98,7 +99,7 @@ const initialState: stateTypeWallet = {
             prevValue: -3489,
          },
          {
-            category: 'Развлечения',
+            category: {id: 5, name: 'Развлечения', color: '#8bc34a'},
             change: -1,
             date: '02.01.2022',
             id: 11,
@@ -109,7 +110,7 @@ const initialState: stateTypeWallet = {
       ],
       income: [
          {
-            category: 'Зарплата',
+            category: {id: 1, name: 'Зарплата', color: '#7b1fa2'},
             change: 10000,
             date: '02.01.2022',
             id: 1,
@@ -118,7 +119,7 @@ const initialState: stateTypeWallet = {
             prevValue: 0,
          },
          {
-            category: 'Сбережения',
+            category: {id: 2, name: 'Сбережения', color: '#0097a7'},
             change: 1500,
             date: '02.01.2022',
             id: 9,

@@ -8,12 +8,13 @@ import {WalletPropsType} from './WalletContainer'
 import {HeaderPage} from './HeaderPage/HeaderPage'
 import {Moment} from 'moment'
 import {MainPieChart} from './charts/MainPieChart/MainPieChart'
+import {category} from '../../store/Categories/categoriesReducer'
 
 export const Wallet = ({saveStory, state}: WalletPropsType) => {
    const [add, setAdd] = useState<boolean>(false)
    const [changeFormVisible, setChangeFormVisible] = useState<boolean>(false)
 
-   const addStory = (category: string, change: number, operationComment: string, date: Moment) => {
+   const addStory = (category: category, change: number, operationComment: string, date: Moment) => {
       saveStory(category, change, operationComment, date)
    }
 
@@ -28,17 +29,16 @@ export const Wallet = ({saveStory, state}: WalletPropsType) => {
    }
 
    const borderColor = !changeFormVisible ? 'rgba(86,86,86,0.5)' : add ? '#1890ff' : '#ff4d4f'
-   console.log('wallet')
    return (
       <>
-         <HeaderPage state={state.wallet} categoriesExpenses={state.categories.categoryNameExpenses}/>
+         <HeaderPage state={state.wallet} categoriesExpenses={state.categories.categoryExpenses}/>
          <div className={s.wrapper}>
             <div className={s.col}>
 
                <div className={s.chart}>
                   <MainPieChart
                      story={state.wallet.story.expenses}
-                     categories={state.categories.categoryNameExpenses}
+                     categories={state.categories.categoryExpenses}
                      total={state.wallet.allExpenses}
                   />
                </div>

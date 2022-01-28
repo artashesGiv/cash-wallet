@@ -2,18 +2,20 @@ import React from 'react'
 import {Table} from 'antd'
 import Text from 'antd/lib/typography/Text'
 import {stateTypeWallet} from '../../../store/Wallet/walletReducer'
+import {category} from '../../../store/Categories/categoriesReducer'
 
 type PropsType = {
    state: stateTypeWallet,
 }
 
 const StoryMemo = ({state}: PropsType) => {
-
    const columns = [
       {
          title: 'Категория',
          dataIndex: 'category',
          key: 'category',
+         render: (value: category) => <div style={{backgroundColor: value.color}}>{value.name}</div>
+
       },
       {
          title: 'Операция',
@@ -58,5 +60,6 @@ const StoryMemo = ({state}: PropsType) => {
       />
    )
 }
+
 
 export const Story = React.memo(StoryMemo)

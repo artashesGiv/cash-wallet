@@ -7,4 +7,22 @@
 
 .expenses, .income {
    width: 300px;
+
+   .categoryItem {
+      display: inline-flex;
+      height: 25px;
+      margin-right: 10px;
+
+      .colorBlock {
+         display: inline-block;
+         margin-left: 5px;
+         width: 25px;
+         height: 25px;
+         border-radius: 50%;
+         &:hover {
+            border: 2px solid;
+            cursor: pointer;
+         }
+      }
+   }
 }

@@ -3,11 +3,11 @@ import {Button, DatePicker, Form, Input, InputNumber, message} from 'antd'
 import {EditTwoTone, LeftCircleTwoTone, MinusCircleTwoTone, PlusCircleTwoTone} from '@ant-design/icons'
 import {CategorySelect} from '../../Categories/CategorySelect/CategorySelect'
 import moment, {Moment} from 'moment'
-import {stateTypeCategories} from '../../../store/Categories/categoriesReducer'
+import {category, stateTypeCategories} from '../../../store/Categories/categoriesReducer'
 
 type PropsType = {
    add: boolean
-   changeCash: (category: string, difference: number, operationComment: string, date: Moment) => void
+   changeCash: (category: category, difference: number, operationComment: string, date: Moment) => void
    setVisible: (visible: boolean) => void
    categories: stateTypeCategories
 }
@@ -18,10 +18,13 @@ const ChangeCashFormMemo = (props: PropsType) => {
       setDate(value)
    }
 
-   const IconButton = props.add ? <PlusCircleTwoTone/> : <MinusCircleTwoTone twoToneColor={'#eb2f96'}/>
+   const IconButton = props.add ? <PlusCircleTwoTone/> : <MinusCircleTwoTone twoToneColor={'#ff4d4f'}/>
 
    const onFinish = (values: any) => {
-      props.changeCash(values.category, props.add ? +values.sum : +(-values.sum), values.comment, date)
+
+      const category = props.categories.categoryExpenses.concat(props.categories.categoryIncome).filter(c => c.name === values.category)
+
+      props.changeCash(category[0], props.add ? +values.sum : +(-values.sum), values.comment, date)
       props.setVisible(false)
       message.success('Операция добавлена').then(r => r)
    }

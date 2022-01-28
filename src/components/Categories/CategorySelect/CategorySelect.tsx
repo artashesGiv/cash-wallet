@@ -9,13 +9,13 @@ type CategorySelectProps = {
    add: boolean
 }
 
-export const CategorySelect = (props: CategorySelectProps) => {
+export const CategorySelect = ({value, onChange, categories, add}: CategorySelectProps) => {
    return (
-      <Select value={props.value} onChange={props.onChange}>
+      <Select value={value} onChange={onChange}>
          {
-            props.add
-               ? props.categories.categoryNameIncome.map(cn => <Select.Option key={cn} value={cn}>{cn}</Select.Option>)
-               : props.categories.categoryNameExpenses.map(cn => <Select.Option key={cn} value={cn}>{cn}</Select.Option>)
+            add
+               ? categories.categoryIncome.map(cn => <Select.Option key={cn.name} value={cn.name} style={{color: cn.color, fontWeight: 'bold'}}>{cn.name}</Select.Option>)
+               : categories.categoryExpenses.map(cn => <Select.Option key={cn.name} value={cn.name} style={{color: cn.color, fontWeight: 'bold'}}>{cn.name}</Select.Option>)
          }
       </Select>
    )

@@ -2,6 +2,8 @@ import React, {useState} from 'react'
 import s from './Categories.module.scss'
 import {CategoryInput} from './CategoryInput/CategoryInput'
 import {CategoriesPropsType} from './CategoriesContainer'
+import {PlusOutlined} from '@ant-design/icons'
+import {Button} from 'antd'
 
 export const Categories = ({addCategory, state}: CategoriesPropsType) => {
 
@@ -18,23 +20,43 @@ export const Categories = ({addCategory, state}: CategoriesPropsType) => {
       setIsModalVisible(true)
    }
 
-   const changeCategory = (categoryName: string) => {
-      addCategory(categoryName, add)
+   const addCategoryHandler = (categoryName: string, color: string) => {
+      addCategory(categoryName, add, color)
    }
 
    return (
       <div className={s.wrapper}>
-         <div className={s.expenses}>
-            <h2>Расходы</h2>
-            {state.categoryNameExpenses.map((c, i) => <span key={i}>{c} </span>)}
-            <button onClick={showModalExpenses}>+</button>
-         </div>
+
          <div className={s.income}>
-            <h2>Доходы</h2>
-            {state.categoryNameIncome.map((c, i) => <span key={i}>{c} </span>)}
-            <button onClick={showModalIncome}>+</button>
-            <CategoryInput visible={isModalVisible} setVisible={setIsModalVisible} addCategory={changeCategory}/>
+            <h2 style={{fontWeight: 'bold'}}>Доходы</h2>
+            {state.categoryIncome
+               .map(c =>
+                  <div className={s.categoryItem} key={c.name}>
+                     <span style={{fontWeight: 'bold', color: c.color}}>{c.name} </span>
+                     <div className={s.colorBlock} style={{backgroundColor: c.color}}/>
+                  </div>,
+               )}
+            <Button onClick={showModalIncome} icon={<PlusOutlined/>} type={'primary'}/>
          </div>
+
+         <CategoryInput
+            visible={isModalVisible}
+            setVisible={setIsModalVisible}
+            addCategory={addCategoryHandler}
+         />
+
+         <div className={s.expenses}>
+            <h2 style={{fontWeight: 'bold'}}>Расходы</h2>
+            {state.categoryExpenses
+               .map(c =>
+                  <div className={s.categoryItem} key={c.name}>
+                     <span style={{fontWeight: 'bold', color: c.color}}>{c.name} </span>
+                     <div className={s.colorBlock} style={{backgroundColor: c.color}}/>
+                  </div>,
+               )}
+            <Button onClick={showModalExpenses} icon={<PlusOutlined/>} type={'primary'}/>
+         </div>
+
       </div>
    )
 }
