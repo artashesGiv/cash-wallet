@@ -2,7 +2,7 @@ import React, {ChangeEvent, useState} from 'react'
 import {Button, Form, Input, message, Modal} from 'antd'
 import {BookTwoTone} from '@ant-design/icons'
 import {category} from '../../../store/Categories/categoriesReducer'
-import { SwatchesPicker } from 'react-color'
+import {SwatchesPicker} from 'react-color'
 
 type CategoryInputProps = {
    setVisible: (visible: boolean) => void
