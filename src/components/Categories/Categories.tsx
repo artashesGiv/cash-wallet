@@ -4,9 +4,7 @@ import {CategoryInput} from './CategoryInput/CategoryInput'
 import {CategoriesPropsType} from './CategoriesContainer'
 import {PlusOutlined} from '@ant-design/icons'
 import {Button} from 'antd'
-import {EditableSpan} from '../UI/EditableSpan/EditableSpan'
-import {EditableColor} from '../UI/EditableColor/EditableColor'
-
+import {CategoryItem} from './CcategoryItem/CategoryItem'
 export const Categories = ({addCategory, changeCategoryName, changeCategoryColor, state}: CategoriesPropsType) => {
 
    const [isModalVisible, setIsModalVisible] = useState(false)
@@ -26,11 +24,11 @@ export const Categories = ({addCategory, changeCategoryName, changeCategoryColor
       addCategory(categoryName, add, color)
    }
 
-   const editingCategory = (id: number, name: string, add: boolean) => {
+   const editingCategoryName = (id: number, name: string, add: boolean) => {
       changeCategoryName(id, name, add)
    }
 
-   const editingColor = (id: number, color: string, add: boolean) => {
+   const editingCategoryColor = (id: number, color: string, add: boolean) => {
       changeCategoryColor(id, color, add)
    }
 
@@ -41,10 +39,15 @@ export const Categories = ({addCategory, changeCategoryName, changeCategoryColor
             <h2 style={{fontWeight: 'bold'}}>Доходы</h2>
             {state.categoryIncome
                .map(c =>
-                  <div className={s.categoryItem} key={c.name}>
-                     <EditableSpan id={c.id} title={c.name} setNewTitle={editingCategory} add={true} color={c.color}/>
-                     <EditableColor id={c.id} setNewColor={editingColor} name={c.name} add={true} color={c.color}/>
-                  </div>,
+                  <CategoryItem
+                     key={c.name}
+                     id={c.id}
+                     name={c.name}
+                     color={c.color}
+                     add={true}
+                     editingName={editingCategoryName}
+                     editingColor={editingCategoryColor}
+                  />,
                )}
             <Button onClick={showModalIncome} icon={<PlusOutlined/>} type={'primary'}/>
          </div>
@@ -59,10 +62,15 @@ export const Categories = ({addCategory, changeCategoryName, changeCategoryColor
             <h2 style={{fontWeight: 'bold'}}>Расходы</h2>
             {state.categoryExpenses
                .map(c =>
-                  <div className={s.categoryItem} key={c.name}>
-                     <EditableSpan id={c.id} title={c.name} setNewTitle={editingCategory} add={false} color={c.color}/>
-                     <EditableColor id={c.id} setNewColor={editingColor} name={c.name} add={false} color={c.color}/>
-                  </div>,
+                  <CategoryItem
+                     key={c.name}
+                     id={c.id}
+                     name={c.name}
+                     color={c.color}
+                     add={false}
+                     editingName={editingCategoryName}
+                     editingColor={editingCategoryColor}
+                  />,
                )}
             <Button onClick={showModalExpenses} icon={<PlusOutlined/>} type={'primary'}/>
          </div>
