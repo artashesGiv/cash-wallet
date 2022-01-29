@@ -1,21 +1,25 @@
 import React from 'react'
 import {Table} from 'antd'
 import Text from 'antd/lib/typography/Text'
-import {stateTypeWallet} from '../../../store/Wallet/walletReducer'
 import {category} from '../../../store/Categories/categoriesReducer'
+import {AppStateType} from '../../../store/store'
 
-type PropsType = {
-   state: stateTypeWallet,
+type StoryPropsType = {
+   state: AppStateType,
 }
 
-const StoryMemo = ({state}: PropsType) => {
+export const Story = React.memo(({state}: StoryPropsType) => {
+
    const columns = [
       {
          title: 'Категория',
          dataIndex: 'category',
          key: 'category',
-         render: (value: category) => <div style={{backgroundColor: value.color}}>{value.name}</div>
+         render: (value: category) => {
+            const color = value.type ? 'rgba(49,127,67,0.65)' : 'rgba(227,38,54,0.65)'
 
+            return <div style={{backgroundColor: color, fontWeight: 'bold'}}>{value.name}</div>
+         },
       },
       {
          title: 'Операция',
@@ -40,11 +44,14 @@ const StoryMemo = ({state}: PropsType) => {
    ]
 
    const dataSource = [
-      ...state.story.expenses,
-      ...state.story.income,
+      ...state.wallet.story.expenses,
+      ...state.wallet.story.income,
    ]
       .sort((a, b) => a.id > b.id ? 1 : -1)
       .map((s, id) => ({...s, key: id}))
+
+   console.log(dataSource)
+
    return (
       <Table
          dataSource={dataSource}
@@ -59,7 +66,4 @@ const StoryMemo = ({state}: PropsType) => {
          }}
       />
    )
-}
-
-
-export const Story = React.memo(StoryMemo)
+})

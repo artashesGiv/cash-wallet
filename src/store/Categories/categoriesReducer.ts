@@ -4,6 +4,7 @@ export type category = {
    id: number
    name: string
    color: string
+   type: boolean
 }
 
 export type stateTypeCategories = {
@@ -13,14 +14,14 @@ export type stateTypeCategories = {
 
 const initialState: stateTypeCategories = {
    categoryIncome: [
-      {id: 1, name: 'Зарплата', color: '#7b1fa2'},
-      {id: 2, name: 'Сбережения', color: '#0097a7'},
+      {id: 1, name: 'Зарплата', color: '#7b1fa2', type: true},
+      {id: 2, name: 'Сбережения', color: '#0097a7', type: true},
    ],
    categoryExpenses: [
-      {id: 3, name: 'Дом', color: '#7986cb'},
-      {id: 4, name: 'Машина', color: '#ff9800'},
-      {id: 5, name: 'Развлечения', color: '#8bc34a'},
-      {id: 6, name: 'Здоровье', color: '#5d4037'},
+      {id: 3, name: 'Дом', color: '#7986cb', type: false},
+      {id: 4, name: 'Машина', color: '#ff9800', type: false},
+      {id: 5, name: 'Развлечения', color: '#8bc34a', type: false},
+      {id: 6, name: 'Здоровье', color: '#5d4037', type: false},
    ],
 }
 
@@ -31,12 +32,12 @@ export const categoriesReducer = (state: stateTypeCategories = initialState, act
          if (action.add) {
             return {
                ...state,
-               categoryIncome: [...state.categoryIncome, {id: amountCategories + 1, name: action.category, color: action.color}],
+               categoryIncome: [...state.categoryIncome, {id: amountCategories + 1, name: action.category, color: action.color, type: true}],
             }
          } else {
             return {
                ...state,
-               categoryExpenses: [...state.categoryExpenses, {id: amountCategories + 1, name: action.category, color: action.color}],
+               categoryExpenses: [...state.categoryExpenses, {id: amountCategories + 1, name: action.category, color: action.color, type: false}],
             }
          }
       case 'CHANGE-CATEGORY-NAME':

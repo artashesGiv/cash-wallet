@@ -56,7 +56,7 @@ export const Wallet = ({saveStory, state}: WalletPropsType) => {
                      <Button type={'primary'} onClick={addCash} icon={<PlusCircleTwoTone/>} shape={'circle'}
                              size={'large'}/>
                      <Button type={'primary'} danger onClick={deductCash}
-                             icon={<MinusCircleTwoTone twoToneColor={'#eb2f96'}/>}
+                             icon={<MinusCircleTwoTone twoToneColor={'#ff4d4f'}/>}
                              shape="circle"
                              size={'large'}/>
                    </div>
@@ -65,7 +65,7 @@ export const Wallet = ({saveStory, state}: WalletPropsType) => {
 
             </div>
             <div className={s.table}>
-               <Story state={state.wallet}/>
+               <Story state={state}/>
             </div>
          </div>
       </>

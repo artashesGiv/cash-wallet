@@ -23,7 +23,7 @@ const MainPieChartMemo = ({story, categories, total}: MainPieChartPropsType) => 
             category.percent += Math.round(-story[j].change * 100 / total)
          }
       }
-      data.push(category)
+      if (category.percent !== 0) data.push(category)
    }
 
    return (

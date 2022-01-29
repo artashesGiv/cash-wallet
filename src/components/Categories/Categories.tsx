@@ -4,7 +4,7 @@ import {CategoryInput} from './CategoryInput/CategoryInput'
 import {CategoriesPropsType} from './CategoriesContainer'
 import {PlusOutlined} from '@ant-design/icons'
 import {Button} from 'antd'
-import {CategoryItem} from './CcategoryItem/CategoryItem'
+import {CategoryItem} from './CategoryItem/CategoryItem'
 export const Categories = ({addCategory, changeCategoryName, changeCategoryColor, state}: CategoriesPropsType) => {
 
    const [isModalVisible, setIsModalVisible] = useState(false)
