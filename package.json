@@ -29,7 +29,7 @@
     "web-vitals": "^2.1.2",
     "yarn": "^1.22.17"
   },
-  "homepage": "https://artashesgiv.github.io/CashWallet",
+  "homepage": "https://artashesgiv.github.io/cash-wallet",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
