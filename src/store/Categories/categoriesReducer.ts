@@ -1,4 +1,4 @@
-import {addCategory, changeCategory} from './actions'
+import {addCategory, changeCategoryColor, changeCategoryName} from './actions'
 
 export type category = {
    id: number
@@ -39,22 +39,38 @@ export const categoriesReducer = (state: stateTypeCategories = initialState, act
                categoryExpenses: [...state.categoryExpenses, {id: amountCategories + 1, name: action.category, color: action.color}],
             }
          }
-      case 'CHANGE-CATEGORY':
+      case 'CHANGE-CATEGORY-NAME':
          if (action.add) {
             return {
                ...state,
-               categoryIncome: state.categoryIncome.map(c => c.name === action.category ? {
+               categoryIncome: state.categoryIncome.map(c => c.id === action.id ? {
                   ...c,
-                  name: action.category,
+                  name: action.category
+               } : c),
+            }
+         } else {
+            return {
+               ...state,
+               categoryExpenses: state.categoryExpenses.map(c => c.id === action.id ? {
+                  ...c,
+                  name: action.category
+               } : c),
+            }
+         }
+      case 'CHANGE-CATEGORY-COLOR':
+         if (action.add) {
+            return {
+               ...state,
+               categoryIncome: state.categoryIncome.map(c => c.id === action.id ? {
+                  ...c,
                   color: action.color
                } : c),
             }
          } else {
             return {
                ...state,
-               categoryExpenses: state.categoryExpenses.map(c => c.name === action.category ? {
+               categoryExpenses: state.categoryExpenses.map(c => c.id === action.id ? {
                   ...c,
-                  name: action.category,
                   color: action.color
                } : c),
             }
@@ -64,4 +80,4 @@ export const categoriesReducer = (state: stateTypeCategories = initialState, act
    }
 }
 
-type actionType = ReturnType<typeof addCategory> | ReturnType<typeof changeCategory>
+type actionType = ReturnType<typeof addCategory> | ReturnType<typeof changeCategoryName> | ReturnType<typeof changeCategoryColor>

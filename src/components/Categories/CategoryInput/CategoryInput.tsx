@@ -2,7 +2,7 @@ import React, {ChangeEvent, useState} from 'react'
 import {Button, Form, Input, message, Modal} from 'antd'
 import {BookTwoTone} from '@ant-design/icons'
 import {category} from '../../../store/Categories/categoriesReducer'
-import {SwatchesPicker} from 'react-color'
+import {ColorResult, SwatchesPicker} from 'react-color'
 
 type CategoryInputProps = {
    setVisible: (visible: boolean) => void
@@ -17,7 +17,7 @@ export const CategoryInput = (props: CategoryInputProps) => {
       setInputValueCategoryName(e.currentTarget.value)
    }
 
-   const onChangeInputColor = (color: any) => {
+   const onChangeInputColor = (color: ColorResult) => {
       setInputColor(color.hex)
    }
 

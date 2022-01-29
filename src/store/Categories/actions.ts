@@ -7,12 +7,19 @@ export const addCategory = (category: string, add: boolean, color: string) => {
    } as const
 }
 
-export const changeCategory = (id: number, category: string, add: boolean, color: string) => {
+export const changeCategoryName = (id: number, category: string, add: boolean) => {
    return {
-      type: 'CHANGE-CATEGORY',
+      type: 'CHANGE-CATEGORY-NAME',
       id,
       add,
-      color,
       category,
    } as const
+}
+export const changeCategoryColor = (id: number, color: string, add: boolean) => {
+    return {
+        type: 'CHANGE-CATEGORY-COLOR',
+       id,
+       add,
+       color,
+    } as const
 }

@@ -4,8 +4,10 @@ import {CategoryInput} from './CategoryInput/CategoryInput'
 import {CategoriesPropsType} from './CategoriesContainer'
 import {PlusOutlined} from '@ant-design/icons'
 import {Button} from 'antd'
+import {EditableSpan} from '../UI/EditableSpan/EditableSpan'
+import {EditableColor} from '../UI/EditableColor/EditableColor'
 
-export const Categories = ({addCategory, state}: CategoriesPropsType) => {
+export const Categories = ({addCategory, changeCategoryName, changeCategoryColor, state}: CategoriesPropsType) => {
 
    const [isModalVisible, setIsModalVisible] = useState(false)
    const [add, setAdd] = useState(false)
@@ -24,6 +26,14 @@ export const Categories = ({addCategory, state}: CategoriesPropsType) => {
       addCategory(categoryName, add, color)
    }
 
+   const editingCategory = (id: number, name: string, add: boolean) => {
+      changeCategoryName(id, name, add)
+   }
+
+   const editingColor = (id: number, color: string, add: boolean) => {
+      changeCategoryColor(id, color, add)
+   }
+
    return (
       <div className={s.wrapper}>
 
@@ -32,8 +42,8 @@ export const Categories = ({addCategory, state}: CategoriesPropsType) => {
             {state.categoryIncome
                .map(c =>
                   <div className={s.categoryItem} key={c.name}>
-                     <span style={{fontWeight: 'bold', color: c.color}}>{c.name} </span>
-                     <div className={s.colorBlock} style={{backgroundColor: c.color}}/>
+                     <EditableSpan id={c.id} title={c.name} setNewTitle={editingCategory} add={true} color={c.color}/>
+                     <EditableColor id={c.id} setNewColor={editingColor} name={c.name} add={true} color={c.color}/>
                   </div>,
                )}
             <Button onClick={showModalIncome} icon={<PlusOutlined/>} type={'primary'}/>
@@ -50,8 +60,8 @@ export const Categories = ({addCategory, state}: CategoriesPropsType) => {
             {state.categoryExpenses
                .map(c =>
                   <div className={s.categoryItem} key={c.name}>
-                     <span style={{fontWeight: 'bold', color: c.color}}>{c.name} </span>
-                     <div className={s.colorBlock} style={{backgroundColor: c.color}}/>
+                     <EditableSpan id={c.id} title={c.name} setNewTitle={editingCategory} add={false} color={c.color}/>
+                     <EditableColor id={c.id} setNewColor={editingColor} name={c.name} add={false} color={c.color}/>
                   </div>,
                )}
             <Button onClick={showModalExpenses} icon={<PlusOutlined/>} type={'primary'}/>
